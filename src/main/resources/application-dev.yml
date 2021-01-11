@@ -1,0 +1,15 @@
+server:
+  port:
+    8088
+  servlet:
+    context-path: /hometown-web
+spring:
+  devtools:
+    add-properties: false
+  datasource:
+    druid:
+      datasource:
+        master:
+          url: jdbc:mysql://localhost:3306/hometown?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2b8
+          username: root
+          password: root

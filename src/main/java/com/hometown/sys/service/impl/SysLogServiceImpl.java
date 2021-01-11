@@ -1,0 +1,64 @@
+package com.hometown.sys.service.impl;
+
+
+import com.hometown.sys.dao.SysLogsDao;
+import com.hometown.sys.entity.SysLogs;
+import com.hometown.sys.entity.SysUser;
+import com.hometown.sys.service.SysLogService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
+import java.util.Date;
+
+@Service
+public class SysLogServiceImpl implements SysLogService {
+
+	private static final Logger log = LoggerFactory.getLogger("adminLogger");
+
+	@Autowired
+	private SysLogsDao sysLogsDao;
+
+	/**
+	 * 2018.05.12将该方法改为异步,用户由调用者设置
+	 *
+	 * @param sysLogs
+	 * @see
+	 */
+	@Async
+	@Override
+	public void save(SysLogs sysLogs) {
+		if (sysLogs == null || sysLogs.getUser() == null || sysLogs.getUser().getId() == null) {
+			return;
+		}
+		sysLogsDao.save(sysLogs);
+	}
+
+	@Async
+	@Override
+	public void save(Long userId, String module, Boolean flag, String remark) {
+		SysLogs sysLogs = new SysLogs();
+		sysLogs.setFlag(flag);
+		sysLogs.setModule(module);
+		sysLogs.setRemark(remark);
+
+		SysUser user = new SysUser();
+		user.setId(userId);
+		sysLogs.setUser(user);
+
+		sysLogsDao.save(sysLogs);
+
+	}
+
+	@Override
+	public void deleteLogs() {
+		Date date = DateUtils.addMonths(new Date(), -3);
+		String time = DateFormatUtils.format(date, DateFormatUtils.ISO_8601_EXTENDED_DATE_FORMAT.getPattern());
+
+		int n = sysLogsDao.deleteLogs(time);
+		log.info("删除{}之前日志{}条", time, n);
+	}
+}

@@ -26,13 +26,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 
 
-/**
- * spring security处理器
- * 
- * @author 小威老师 xiaoweijiagou@163.com
- *
- *         2017年10月16日
- */
+
 @Configuration
 public class SecurityHandlerConfig {
 

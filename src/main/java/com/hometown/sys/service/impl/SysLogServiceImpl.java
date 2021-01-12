@@ -22,12 +22,7 @@ public class SysLogServiceImpl implements SysLogService {
 	@Autowired
 	private SysLogsDao sysLogsDao;
 
-	/**
-	 * 2018.05.12将该方法改为异步,用户由调用者设置
-	 *
-	 * @param sysLogs
-	 * @see
-	 */
+
 	@Async
 	@Override
 	public void save(SysLogs sysLogs) {
@@ -44,7 +39,6 @@ public class SysLogServiceImpl implements SysLogService {
 		sysLogs.setFlag(flag);
 		sysLogs.setModule(module);
 		sysLogs.setRemark(remark);
-
 		SysUser user = new SysUser();
 		user.setId(userId);
 		sysLogs.setUser(user);

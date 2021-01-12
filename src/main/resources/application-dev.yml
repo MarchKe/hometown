@@ -1,15 +1,22 @@
-server:
-  port:
-    8088
-  servlet:
-    context-path: /hometown-web
 spring:
-  devtools:
-    add-properties: false
   datasource:
-    druid:
-      datasource:
-        master:
-          url: jdbc:mysql://localhost:3306/hometown?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2b8
-          username: root
-          password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hometown?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    username: root
+    password: root
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+log:
+  level:
+    root: info
+    my: debug
+  file: logs/admin-server.log
+  maxsize: 30MB
+token:
+  expire:
+    seconds: 7200
+  jwtSecret: (XIAO:)_$^11244^%$_(WEI:)_@@++--(LAO:)_++++_.sds_(SHI:)
+server:
+  port: 8088
